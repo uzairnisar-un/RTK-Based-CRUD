@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
+import type { ThemeProviderProps } from "../App/types/post.types.js";
 
-const ThemeProvider = ({ children }) => {
-  const mode = useSelector((state) => state.theme.mode);
+const ThemeProvider = ({ children }: ThemeProviderProps) => {
+  const mode = useSelector((state: any) => state.theme.mode);
 
   useEffect(() => {
     // Select the root html element

@@ -1,6 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
-const initialState = {
-  mode: localStorage.getItem("themeMode") || "light",
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { ThemeState } from "../../types/post.types.js";
+const savedMode =
+  (localStorage.getItem("themeMode") as "light" | "dark") || "light";
+
+const initialState: ThemeState = {
+  mode: savedMode || "light",
 };
 export const themeSlice = createSlice({
   name: "theme",
@@ -10,7 +14,7 @@ export const themeSlice = createSlice({
       state.mode = state.mode == "light" ? "dark" : "light";
       localStorage.setItem("themeMode", state.mode);
     },
-    setTheme: (state, action) => {
+    setTheme: (state, action: PayloadAction<"light" | "dark">) => {
       state.mode = action.payload;
       localStorage.setItem("themeMode", state.mode);
     },

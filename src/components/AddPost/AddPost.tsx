@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAddPostMutation } from "../../App/service/PostApi";
+import { useAddPostMutation } from "../../App/service/PostApi.js";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
@@ -10,7 +10,7 @@ import {
   FaParagraph,
   FaHandSparkles,
 } from "react-icons/fa";
-import ThemeToggle from "../ThemeToggle";
+import ThemeToggle from "../ThemeToggle.js";
 
 const AddPost = () => {
   const [title, setTitle] = useState("");
@@ -18,7 +18,7 @@ const AddPost = () => {
   const [addPost, { isLoading }] = useAddPostMutation();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!title || !body) {
       toast.error("Please fill in both fields.");

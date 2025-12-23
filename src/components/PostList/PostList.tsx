@@ -12,25 +12,26 @@ import {
 import {
   useDeletePostMutation,
   useGetPostsQuery,
-} from "../../App/service/PostApi";
+} from "../../App/service/PostApi.js";
+import type { Post } from "../../App/types/post.types.js";
 import { ClipLoader } from "react-spinners";
 import { RiMoonClearLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleTheme } from "../../App/redux/slices/themeSlice";
-import ThemeToggle from "../ThemeToggle";
+import { toggleTheme } from "../../App/redux/slices/themeSlice.js";
+import ThemeToggle from "../ThemeToggle.js";
+import type { RootState } from "../../App/store/store.js";
 
 const PostList = () => {
   const { data: allPosts, isLoading } = useGetPostsQuery();
-  const [visiblePosts, setVisiblePosts] = useState([]);
+  const [visiblePosts, setVisiblePosts] = useState<Post[]>([]);
   const [page, setPage] = useState(1);
   const postsPerPage = 8;
-  const observerRef = useRef(null);
+  const observerRef = useRef<HTMLDivElement | null>(null);
   const [deletePost] = useDeletePostMutation();
   const navigate = useNavigate();
   const [isFetchingMore, setIsFetchingMore] = useState(false);
-
   const dispatch = useDispatch();
-  const mode = useSelector((state) => state.theme.mode);
+  const mode = useSelector((state: RootState) => state.theme.mode);
 
   // Initial load
   useEffect(() => {
@@ -43,11 +44,13 @@ const PostList = () => {
   // Infinite scroll observer
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
+      (entries) => {
+        const entry = entries[0];
+        if (!entry) return;
         if (
           entry.isIntersecting &&
           !isFetchingMore &&
-          visiblePosts.length < allPosts?.length
+          (allPosts ? visiblePosts.length < allPosts.length : false)
         ) {
           setIsFetchingMore(true);
           setTimeout(() => {
@@ -126,7 +129,7 @@ const PostList = () => {
 
         <div className="flex items-center gap-6">
           <div className="px-4 py-1.5 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 rounded-full text-sm font-bold border border-emerald-100 dark:border-emerald-800">
-            {allPosts.length} Total Posts
+            {allPosts?.length ?? 0} Total Posts
           </div>
 
           <ThemeToggle />
@@ -206,7 +209,7 @@ const PostList = () => {
       </div>
       {/* Infinite Scroll Footer */}
       <div ref={observerRef} className="py-20 flex justify-center">
-        {visiblePosts.length < allPosts.length ? (
+        {visiblePosts.length < (allPosts?.length ?? 0) ? (
           <div className="flex flex-col items-center gap-3">
             <ClipLoader size={28} color="#10B981" speedMultiplier={0.8} />
             <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">

@@ -3,11 +3,11 @@ import { useParams, useNavigate } from "react-router-dom";
 import {
   useGetPostsQuery,
   useUpdatePostMutation,
-} from "../../App/service/PostApi";
+} from "../../App/service/PostApi.js";
 import { toast } from "react-hot-toast";
 import { FaArrowLeft, FaCheck, FaPenNib, FaAlignLeft } from "react-icons/fa";
 import { ClipLoader } from "react-spinners";
-import ThemeToggle from "../ThemeToggle";
+import ThemeToggle from "../ThemeToggle.js";
 
 const UpdatePost = () => {
   const { id } = useParams();
