@@ -1,7 +1,6 @@
 import React, { type FC } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useGetPostsQuery } from "../../App/service/PostApi.js";
-import type { Post } from "../../App/types/post.types.js";
+import type { Post } from "../../types/post.types.js";
 import {
   FaArrowLeft,
   FaRegCalendarAlt,
@@ -10,8 +9,12 @@ import {
   FaShareAlt,
 } from "react-icons/fa";
 import { ClipLoader } from "react-spinners";
-import ThemeToggle from "../ThemeToggle.js";
-import ReadingProgress from "../ProgressBar/ReadingProgress.js";
+import ThemeToggle from "../../../components/ThemeToggle.js";
+import ReadingProgress from "../../../components/ProgressBar/ReadingProgress.js";
+import { useGetPostsQuery } from "../../service/PostApi.js";
+import ShineImage from "../../../components/ShineImage.js";
+
+import { readingTime } from "../../../utils/readingTime.js";
 
 const PostDetail: FC = () => {
   const { id } = useParams<{ id?: string }>();
@@ -52,6 +55,7 @@ const PostDetail: FC = () => {
   return (
     <>
       <ReadingProgress />
+
       <div className="bg-[#FAFBFF] dark:bg-slate-950 min-h-screen pb-20 transition-colors duration-500">
         <ThemeToggle />
 
@@ -74,7 +78,7 @@ const PostDetail: FC = () => {
         <article className="max-w-3xl mx-auto mt-8 px-6">
           {/* Hero Image */}
           <div className="relative w-full h-[300px] md:h-[450px] overflow-hidden rounded-[2.5rem] shadow-2xl mb-12">
-            <img
+            <ShineImage
               src={`https://picsum.photos/seed/${post.id}/1200/800`}
               alt="Hero"
               className="w-full h-full object-cover dark:brightness-90 transition-all"
@@ -125,7 +129,7 @@ const PostDetail: FC = () => {
               <div className="flex items-center gap-3 ml-auto">
                 <FaRegClock className="text-slate-300 dark:text-slate-600" />
                 <span className="text-sm font-medium text-slate-500 dark:text-slate-400">
-                  4 min read
+                  {readingTime(post.body)} min read
                 </span>
               </div>
             </div>

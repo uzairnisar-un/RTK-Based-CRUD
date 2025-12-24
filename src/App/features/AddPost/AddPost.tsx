@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useAddPostMutation } from "../../App/service/PostApi.js";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
@@ -10,7 +9,8 @@ import {
   FaParagraph,
   FaHandSparkles,
 } from "react-icons/fa";
-import ThemeToggle from "../ThemeToggle.js";
+import ThemeToggle from "../../../components/ThemeToggle.js";
+import { useAddPostMutation } from "../../service/PostApi.js";
 
 const AddPost = () => {
   const [title, setTitle] = useState("");

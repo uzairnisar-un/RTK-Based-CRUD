@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import {
-  useGetPostsQuery,
-  useUpdatePostMutation,
-} from "../../App/service/PostApi.js";
+
 import { toast } from "react-hot-toast";
 import { FaArrowLeft, FaCheck, FaPenNib, FaAlignLeft } from "react-icons/fa";
 import { ClipLoader } from "react-spinners";
-import ThemeToggle from "../ThemeToggle.js";
+import ThemeToggle from "../../../components/ThemeToggle.js";
+import type { Post } from "../../types/post.types.js";
+import {
+  useGetPostsQuery,
+  useUpdatePostMutation,
+} from "../../service/PostApi.js";
 
 const UpdatePost = () => {
   const { id } = useParams();
@@ -20,7 +22,7 @@ const UpdatePost = () => {
 
   useEffect(() => {
     if (posts) {
-      const post = posts.find((p) => p.id === id);
+      const post = posts.find((p: Post) => p.id.toString() === id);
       if (post) {
         setTitle(post.title);
         setBody(post.body);

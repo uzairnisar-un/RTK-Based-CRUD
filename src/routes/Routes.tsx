@@ -1,12 +1,10 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import PostList from "../components/PostList/PostList";
-import AddFormPost from "../components/AddPost/AddPost";
-import PostDetail from "../components/PostDetails/PostDetail";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import UpdatePost from "../components/UpdatePost/UpdatePost";
+import AddFormPost from "../App/features//AddPost/AddPost.js";
+import PostDetail from "../App/features/PostDetails/PostDetail.js";
+import UpdatePost from "../App/features/UpdatePost/UpdatePost.js";
 import toast, { Toaster } from "react-hot-toast";
+import PostList from "../App/features/PostList/PostList.js";
 const AppRoutes = () => {
   return (
     <div>
