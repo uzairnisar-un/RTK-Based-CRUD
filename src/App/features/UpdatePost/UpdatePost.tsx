@@ -7,14 +7,14 @@ import { ClipLoader } from "react-spinners";
 import ThemeToggle from "../../../components/ThemeToggle.js";
 import type { Post } from "../../types/post.types.js";
 import {
-  useGetPostsQuery,
+  useRetrievePostQuery,
   useUpdatePostMutation,
 } from "../../service/PostApi.js";
 
 const UpdatePost = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { data: posts, isLoading: loadingPosts } = useGetPostsQuery();
+  const { data: posts, isLoading: loadingPosts } = useRetrievePostQuery();
   const [updatePost, { isLoading }] = useUpdatePostMutation();
 
   const [title, setTitle] = useState("");

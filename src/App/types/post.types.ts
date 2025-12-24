@@ -1,11 +1,14 @@
 import type { ReactNode } from "react";
 
 export interface Post {
-  id: number;
+  id: string;
   title: string;
   body: string;
+  author?: string;
+  category?: string;
+  createdAt?: string;
+  userId?: number;
 }
-
 export type ThemeMode = "light" | "dark";
 
 export interface ThemeState {

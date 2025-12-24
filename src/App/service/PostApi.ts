@@ -1,36 +1,40 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type { Post } from "../types/post.types.js";
 
-const baseurl = "http://localhost:3031/";
+const baseurl = "http://localhost:5000/api/";
+
 export const postApi = createApi({
   reducerPath: "postApi",
   baseQuery: fetchBaseQuery({ baseUrl: baseurl }),
   tagTypes: ["Posts"],
   endpoints: (builder) => ({
-    getPosts: builder.query<Post[], void>({
-      query: () => "posts",
+    retrievePost: builder.query<Post[], void>({
+      query: () => "retrievePost",
       providesTags: ["Posts"],
     }),
-    addPost: builder.mutation<Post, Partial<Post> & { userId?: number }>({
-      query: (addNewPost) => ({
-        url: "posts",
+
+    createPost: builder.mutation<Post, Partial<Post>>({
+      query: (newPost) => ({
+        url: "createPost",
         method: "POST",
-        body: addNewPost,
+        body: newPost,
       }),
       invalidatesTags: ["Posts"],
     }),
-    deletePost: builder.mutation<void, number>({
-      query: (id) => ({
-        url: `posts/${id}`,
-        method: "DELETE",
-      }),
-      invalidatesTags: ["Posts"],
-    }),
-    updatePost: builder.mutation<Post, Partial<Post> & Pick<Post, "id">>({
-      query: ({ id, ...updatedPost }) => ({
-        url: `posts/${id}`,
+
+    updatePost: builder.mutation<Post, { id: string } & Partial<Post>>({
+      query: ({ id, ...body }) => ({
+        url: `updatePost/${id}`,
         method: "PUT",
-        body: updatedPost,
+        body,
+      }),
+      invalidatesTags: ["Posts"],
+    }),
+
+    deletePost: builder.mutation<void, string>({
+      query: (id) => ({
+        url: `deletePost/${id}`,
+        method: "DELETE",
       }),
       invalidatesTags: ["Posts"],
     }),
@@ -38,8 +42,8 @@ export const postApi = createApi({
 });
 
 export const {
-  useGetPostsQuery,
+  useCreatePostMutation,
   useDeletePostMutation,
-  useAddPostMutation,
+  useRetrievePostQuery,
   useUpdatePostMutation,
 } = postApi;

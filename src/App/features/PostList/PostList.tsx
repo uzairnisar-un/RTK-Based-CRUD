@@ -10,11 +10,11 @@ import type { RootState } from "../../store/store.js";
 import PostCard from "../../../components/PostCard.js";
 import {
   useDeletePostMutation,
-  useGetPostsQuery,
+  useRetrievePostQuery,
 } from "../../service/PostApi.js";
 import { useDebounce } from "../../../utils/useDebounce.js";
 const PostList = () => {
-  const { data: allPosts, isLoading } = useGetPostsQuery();
+  const { data: allPosts, isLoading } = useRetrievePostQuery();
   const [visiblePosts, setVisiblePosts] = useState<Post[]>([]);
   const [page, setPage] = useState(1);
   const postsPerPage = 8;
@@ -49,7 +49,7 @@ const PostList = () => {
 
   // Infinite scroll observer
   useEffect(() => {
-    if (isSearching) return; // ⛔ stop observer during search
+    if (isSearching) return; //  stop observer during search
 
     const observer = new IntersectionObserver(
       (entries) => {

@@ -10,12 +10,12 @@ import {
   FaHandSparkles,
 } from "react-icons/fa";
 import ThemeToggle from "../../../components/ThemeToggle.js";
-import { useAddPostMutation } from "../../service/PostApi.js";
+import { useCreatePostMutation } from "../../service/PostApi.js";
 
 const AddPost = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const [addPost, { isLoading }] = useAddPostMutation();
+  const [addPost, { isLoading }] = useCreatePostMutation();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

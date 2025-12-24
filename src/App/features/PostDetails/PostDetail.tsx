@@ -11,7 +11,7 @@ import {
 import { ClipLoader } from "react-spinners";
 import ThemeToggle from "../../../components/ThemeToggle.js";
 import ReadingProgress from "../../../components/ProgressBar/ReadingProgress.js";
-import { useGetPostsQuery } from "../../service/PostApi.js";
+import { useRetrievePostQuery } from "../../service/PostApi.js";
 import ShineImage from "../../../components/ShineImage.js";
 
 import { readingTime } from "../../../utils/readingTime.js";
@@ -19,7 +19,7 @@ import { readingTime } from "../../../utils/readingTime.js";
 const PostDetail: FC = () => {
   const { id } = useParams<{ id?: string }>();
   const navigate = useNavigate();
-  const { data: posts, isLoading, isError } = useGetPostsQuery();
+  const { data: posts, isLoading, isError } = useRetrievePostQuery();
 
   const post = posts?.find((p: Post) =>
     id !== undefined ? p.id.toString() === id : false
